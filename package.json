@@ -16,6 +16,7 @@
     "@fastify/websocket": "^11.0.1",
     "dotenv": "^16.4.5",
     "fastify": "^5.0.0",
+    "fastify-websocket": "^4.3.0",
     "mercadopago": "^2.0.15",
     "tsc-init": "^2.1.0",
     "tsup": "^8.3.0",

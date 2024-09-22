@@ -11,17 +11,17 @@ export async function paymentWebhookRouter(app: FastifyInstance) {
     // Envia uma mensagem de boas-vindas ao cliente conectado
     connection.socket.send("Bem-vindo ao WebSocket!");
 
-    // Mantém o cliente ouvindo e recebe mensagens do cliente
-    connection.socket.on("message", (message) => {
-      console.log("Mensagem recebida do cliente:", message.toString());
+    // Mantém a conexão ativa
+    connection.socket.on("message", (msg) => {
+      console.log("Mensagem recebida:", msg.toString());
+      connection.socket.send(`Echo: ${msg}`);
     });
 
-    // Quando a conexão é fechada
     connection.socket.on("close", () => {
       console.log("Cliente desconectado.");
+      connection.socket.send("Desconectado do WebSocket.");
     });
 
-    // Caso ocorra algum erro
     connection.socket.on("error", (error) => {
       console.error("Erro na conexão WebSocket:", error);
     });
