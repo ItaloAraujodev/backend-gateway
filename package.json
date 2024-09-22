@@ -17,6 +17,7 @@
     "fastify": "^5.0.0",
     "mercadopago": "^2.0.15",
     "tsc-init": "^2.1.0",
+    "tsup": "^8.3.0",
     "uuid": "^10.0.0",
     "zod": "^3.23.8"
   },
@@ -24,7 +25,6 @@
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^22.5.5",
     "eslint": "^8.57.1",
-    "tsup": "^8.3.0",
     "tsx": "^4.19.1",
     "typescript": "^5.6.2"
   }
