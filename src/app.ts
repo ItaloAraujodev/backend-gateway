@@ -4,6 +4,7 @@ import { env } from "process";
 import { Server } from "node:http";
 import { paymentRouter } from "./http/controllers/Payment/routes";
 import { paymentWebhookRouter } from "./http/controllers/ws/routes";
+import websocketPlugin from "@fastify/websocket";
 import cors from "@fastify/cors";
 
 export const app = fastify();
@@ -14,6 +15,7 @@ app.register(cors, {
   allowedHeaders: ["Content-Type", "Authorization", "Acc"],
 });
 
+app.register(websocketPlugin);
 app.register(paymentRouter);
 app.register(paymentWebhookRouter);
 
