@@ -6,7 +6,8 @@ import { paymentWebhook } from "./paymentWebhook";
 export async function paymentWebhookRouter(app: FastifyInstance) {
   app.post("/webhook/payment", paymentWebhook);
 
-  app.get("/ws", { websocket: true }, (connection) => {
+  app.get("/ws", { websocket: true }, (connection, req) => {
+    const body = req.body;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     console.log("Cliente conectado ao WebSocket.");
 
@@ -15,7 +16,7 @@ export async function paymentWebhookRouter(app: FastifyInstance) {
 
     // Escuta mensagens do cliente
     connection.on("message", (msg) => {
-      console.log("Mensagem recebida:", msg.toString());
+      console.log("Mensagem recebida:", body);
       // Responde imediatamente, ou ajuste conforme necessário
       connection.send(`Echo: ${msg}`);
     });
