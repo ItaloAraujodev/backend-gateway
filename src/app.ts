@@ -9,13 +9,13 @@ import cors from "@fastify/cors";
 
 export const app = fastify();
 
+app.register(websocketPlugin);
 app.register(cors, {
   origin: "*",
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization", "Acc"],
 });
 
-app.register(websocketPlugin);
 app.register(paymentRouter);
 app.register(paymentWebhookRouter);
 

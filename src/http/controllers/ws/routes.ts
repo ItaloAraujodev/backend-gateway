@@ -5,24 +5,28 @@ import { paymentWebhook } from "./paymentWebhook";
 
 export async function paymentWebhookRouter(app: FastifyInstance) {
   app.post("/webhook/payment", paymentWebhook);
+
   app.get("/ws", { websocket: true }, (connection) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
     console.log("Cliente conectado ao WebSocket.");
 
-    // Envia uma mensagem de boas-vindas ao cliente conectado
-    connection.socket.send("Bem-vindo ao WebSocket!");
+    // Envia uma mensagem de boas-vindas
+    connection.send("Bem-vindo ao WebSocket!");
 
-    // Mantém a conexão ativa
-    connection.socket.on("message", (msg) => {
+    // Escuta mensagens do cliente
+    connection.on("message", (msg) => {
       console.log("Mensagem recebida:", msg.toString());
-      connection.socket.send(`Echo: ${msg}`);
+      // Responde imediatamente, ou ajuste conforme necessário
+      connection.send(`Echo: ${msg}`);
     });
 
-    connection.socket.on("close", () => {
+    // Escuta o fechamento da conexão
+    connection.on("close", () => {
       console.log("Cliente desconectado.");
-      connection.socket.send("Desconectado do WebSocket.");
     });
 
-    connection.socket.on("error", (error) => {
+    // Escuta erros na conexão
+    connection.on("error", (error) => {
       console.error("Erro na conexão WebSocket:", error);
     });
   });
