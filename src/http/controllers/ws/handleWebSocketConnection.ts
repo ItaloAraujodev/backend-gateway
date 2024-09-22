@@ -1,37 +1,19 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { FastifyRequest, FastifyReply } from "fastify";
+// /* eslint-disable @typescript-eslint/no-explicit-any */
+// import { FastifyRequest, FastifyReply } from "fastify";
 
-const connectedClients: Set<any> = new Set();
+// export async function paymentWebhook(req: FastifyRequest, reply: FastifyReply) {
+//   try {
+//     const body = req.body;
 
-export function handleWebSocketConnection(connection: any) {
-  connectedClients.add(connection);
+//     if (!body) {
+//       return reply.status(400).send({ error: "Invalid request body" });
+//     }
 
-  connection.socket.on("close", () => {
-    connectedClients.delete(connection);
-  });
-}
+//     console.log("Received webhook data:", body);
 
-function broadcastPaymentData(data: any) {
-  connectedClients.forEach((client) => {
-    client.socket.send(JSON.stringify(data));
-  });
-}
-
-export async function paymentWebhook(req: FastifyRequest, reply: FastifyReply) {
-  try {
-    const body = req.body;
-
-    if (!body) {
-      return reply.status(400).send({ error: "Invalid request body" });
-    }
-
-    console.log("Received webhook data:", body);
-
-    broadcastPaymentData(body);
-
-    return reply.status(200).send({ success: true, data: body });
-  } catch (error) {
-    console.error("Error processing webhook:", error);
-    return reply.status(500).send({ error: "Internal Server Error" });
-  }
-}
+//     return reply.status(200).send({ success: true, data: body });
+//   } catch (error) {
+//     console.error("Error processing webhook:", error);
+//     return reply.status(500).send({ error: "Internal Server Error" });
+//   }
+// }
