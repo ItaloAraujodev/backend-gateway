@@ -1,5 +1,4 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { broadcastData } from "./routes"; // Importa a função de broadcast
 
 export async function paymentWebhook(req: FastifyRequest, reply: FastifyReply) {
   try {
@@ -10,9 +9,6 @@ export async function paymentWebhook(req: FastifyRequest, reply: FastifyReply) {
     }
 
     console.log("Webhook de pagamento recebido:", body);
-
-    // Envia os dados do webhook para todos os clientes WebSocket conectados
-    broadcastData({ event: "payment_received", data: body });
 
     return reply.status(200).send({ success: true, data: body });
   } catch (error) {
